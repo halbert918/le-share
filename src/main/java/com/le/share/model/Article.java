@@ -1,133 +1,148 @@
 package com.le.share.model;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.Indexed;
-import org.springframework.data.mongodb.core.mapping.Document;
-
+import java.io.Serializable;
 import java.util.Date;
 
-/**
- * Created by yinbohe.
- * Date 2020/3/30
- * Description
- */
-@Document(collection = "t_article")
-@JsonInclude(value = JsonInclude.Include.NON_NULL)
-@ApiModel(value = "文章主题", description = "Article")
-public class Article {
+public class Article implements Serializable {
+    private Long id;
 
-  @Id
-  @ApiModelProperty(value = "ID", dataType = "long")
-  private Long id;
+    private String title;
 
-  @ApiModelProperty(value = "作者", dataType = "string")
-  @Indexed
-  private String author;
+    private Long authorUserId;
 
-  @ApiModelProperty(value = "标题", dataType = "string")
-  private String title;
+    private Integer commentCount;
 
-  @ApiModelProperty(value = "类型", dataType = "int")
-  private Integer type;
+    private Integer likeCount;
 
-  @ApiModelProperty(value = "内容", dataType = "int")
-  private String content;
+    private Integer viewCount;
 
-  @ApiModelProperty(value = "浏览数量", dataType = "int")
-  private Integer viewNum = 0;
+    private Integer type;
 
-  @ApiModelProperty(value = "点赞数量", dataType = "int")
-  private Integer likeNum = 0;
+    private Integer status;
 
-  @ApiModelProperty(value = "状态", dataType = "int")
-  private Integer status = 1;
+    private Integer isHot;
 
-  @ApiModelProperty(value = "创建时间", dataType = "date")
-  private Date createTime;
+    private Integer isSwiper;
 
-  @ApiModelProperty(value = "更新时间", dataType = "date")
-  private Date updateTime;
+    private Date createTime;
 
-  public Long getId() {
-    return id;
-  }
+    private String updator;
 
-  public void setId(Long id) {
-    this.id = id;
-  }
+    private Date updateTime;
 
-  public String getAuthor() {
-    return author;
-  }
+    private String content;
 
-  public void setAuthor(String author) {
-    this.author = author;
-  }
+    private static final long serialVersionUID = 1L;
 
-  public String getTitle() {
-    return title;
-  }
+    public Long getId() {
+        return id;
+    }
 
-  public void setTitle(String title) {
-    this.title = title;
-  }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-  public Integer getType() {
-    return type;
-  }
+    public String getTitle() {
+        return title;
+    }
 
-  public void setType(Integer type) {
-    this.type = type;
-  }
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-  public String getContent() {
-    return content;
-  }
+    public Long getAuthorUserId() {
+        return authorUserId;
+    }
 
-  public void setContent(String content) {
-    this.content = content;
-  }
+    public void setAuthorUserId(Long authorUserId) {
+        this.authorUserId = authorUserId;
+    }
 
-  public Integer getViewNum() {
-    return viewNum;
-  }
+    public Integer getCommentCount() {
+        return commentCount;
+    }
 
-  public void setViewNum(Integer viewNum) {
-    this.viewNum = viewNum;
-  }
+    public void setCommentCount(Integer commentCount) {
+        this.commentCount = commentCount;
+    }
 
-  public Integer getLikeNum() {
-    return likeNum;
-  }
+    public Integer getLikeCount() {
+        return likeCount;
+    }
 
-  public void setLikeNum(Integer likeNum) {
-    this.likeNum = likeNum;
-  }
+    public void setLikeCount(Integer likeCount) {
+        this.likeCount = likeCount;
+    }
 
-  public Integer getStatus() {
-    return status;
-  }
+    public Integer getViewCount() {
+        return viewCount;
+    }
 
-  public void setStatus(Integer status) {
-    this.status = status;
-  }
+    public void setViewCount(Integer viewCount) {
+        this.viewCount = viewCount;
+    }
 
-  public Date getCreateTime() {
-    return createTime;
-  }
+    public Integer getType() {
+        return type;
+    }
 
-  public void setCreateTime(Date createTime) {
-    this.createTime = createTime;
-  }
+    public void setType(Integer type) {
+        this.type = type;
+    }
 
-  public Date getUpdateTime() {
-    return updateTime;
-  }
+    public Integer getStatus() {
+        return status;
+    }
 
-  public void setUpdateTime(Date updateTime) {
-    this.updateTime = updateTime;
-  }
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public Integer getIsHot() {
+        return isHot;
+    }
+
+    public void setIsHot(Integer isHot) {
+        this.isHot = isHot;
+    }
+
+    public Integer getIsSwiper() {
+        return isSwiper;
+    }
+
+    public void setIsSwiper(Integer isSwiper) {
+        this.isSwiper = isSwiper;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public String getUpdator() {
+        return updator;
+    }
+
+    public void setUpdator(String updator) {
+        this.updator = updator;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
 }

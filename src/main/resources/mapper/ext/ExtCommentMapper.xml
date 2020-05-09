@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.le.share.mapper.ext.ExtCommentMapper">
+  <resultMap id="ExtBaseResultMap" extends="com.le.share.mapper.CommentMapper.BaseResultMap"
+             type="com.le.share.model.CommentDetail">
+    <result column="nick_name" jdbcType="VARCHAR" property="nickName" />
+    <result column="avatar_url" jdbcType="VARCHAR" property="avatarUrl" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    c.id, c.art_id, c.content, c.comment_user_id, c.like_count, c.reply_count, c.status, c.create_time
+  </sql>
+
+  <select id="selectList" parameterType="java.lang.Long" resultMap="ExtBaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    , u.nick_name, u.avatar_url
+    FROM t_comment c LEFT JOIN t_user u ON c.comment_user_id = u.id
+    WHERE c.art_id = #{artId,jdbcType=BIGINT} AND c.`status` = 0 AND u.`status` = 0
+    ORDER BY c.create_time DESC
+  </select>
+
+  <select id="selectListByUserId" resultMap="ExtBaseResultMap">
+    SELECT c.id, c.art_id, c.create_time, c.content, c.like_count, c.reply_count
+    FROM t_comment c
+    WHERE c.`status` = 0 and c.comment_user_id = #{userId}
+    ORDER BY create_time DESC
+    LIMIT #{offset}, #{limit}
+  </select>
+
+  <select id="selectOne" parameterType="java.lang.Long" resultMap="ExtBaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    , u.nick_name, u.avatar_url
+    FROM t_comment c LEFT JOIN t_user u ON c.comment_user_id = u.id
+    WHERE c.id =  #{id,jdbcType=BIGINT}
+  </select>
+
+  <update id="incrLikeCount">
+    update t_comment
+    set
+    like_count = like_count + #{incr}
+    where id = #{id, jdbcType=BIGINT}
+  </update>
+
+  <update id="incrReplyCount">
+    update t_comment
+    set
+    reply_count = reply_count + 1
+    where id = #{id, jdbcType=BIGINT}
+  </update>
+</mapper>

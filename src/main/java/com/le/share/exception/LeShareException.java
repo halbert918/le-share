@@ -1,6 +1,6 @@
 package com.le.share.exception;
 
-import com.le.share.common.enums.ExpResultEnum;
+import com.le.share.common.enums.LeResultEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,7 +13,7 @@ public class LeShareException extends RuntimeException {
 
   private Logger logger = LoggerFactory.getLogger(LeShareException.class);
 
-  private ExpResultEnum resultEnum = ExpResultEnum.UN_KNOWN_EXCEPTION;
+  private LeResultEnum resultEnum = LeResultEnum.UN_KNOWN_EXCEPTION;
 
   public LeShareException(String message) {
     super(message);
@@ -27,26 +27,26 @@ public class LeShareException extends RuntimeException {
     super(message, cause);
   }
 
-  public LeShareException(ExpResultEnum resultEnum, Throwable cause) {
+  public LeShareException(LeResultEnum resultEnum, Throwable cause) {
     super(cause);
     this.resultEnum = resultEnum;
   }
 
-  public LeShareException(ExpResultEnum resultEnum) {
+  public LeShareException(LeResultEnum resultEnum) {
     super(resultEnum.getMessage());
     this.resultEnum = resultEnum;
   }
 
-  public LeShareException(ExpResultEnum resultEnum, String message) {
+  public LeShareException(LeResultEnum resultEnum, String message) {
     super(null == message ? resultEnum.getMessage() : message);
     this.resultEnum = resultEnum;
   }
 
-  public ExpResultEnum getResultEnum() {
+  public LeResultEnum getResultEnum() {
     return resultEnum;
   }
 
-  public void setResultEnum(ExpResultEnum resultEnum) {
+  public void setResultEnum(LeResultEnum resultEnum) {
     this.resultEnum = resultEnum;
   }
 }

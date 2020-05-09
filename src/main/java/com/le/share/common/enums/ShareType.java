@@ -7,7 +7,11 @@ package com.le.share.common.enums;
  */
 public enum ShareType {
 
-  LIFE(1, "生活类");
+  ARTICLE(0, "文章"),
+
+  DYNAMICS(1, "动态"),
+
+  ;
 
   private int type;
 

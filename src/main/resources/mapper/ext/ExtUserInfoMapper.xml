@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.le.share.mapper.ext.ExtUserInfoMapper">
+  <resultMap id="ExtBaseResultMap" extends="com.le.share.mapper.UserInfoMapper.BaseResultMap" type="com.le.share.model.UserInfo">
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, nick_name, avatar_url, gender, province, city, country, openid, session_key,
+    unionid, status, create_time, update_time
+  </sql>
+
+  <select id="selectByOpenId" resultMap="ExtBaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_user
+    where openid = #{openid}
+  </select>
+
+  <select id="selectBaseUserInfo" resultMap="ExtBaseResultMap">
+    id, nick_name, avatar_url, gender
+    <include refid="Base_Column_List" />
+    from t_user
+    where id = #{userId}
+  </select>
+
+  <select id="exsitUserInfo" resultMap="ExtBaseResultMap">
+    SELECT id, nick_name, avatar_url FROM t_user
+    WHERE 1 = 1
+    AND id IN
+    <foreach collection="userIds" item="item" index="index" open="(" close=")" separator=",">
+      #{item}
+    </foreach>
+  </select>
+
+</mapper>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.le.share.mapper.ext.ExtLikeUserMapper">
+  <resultMap id="ExtBaseResultMap" extends="com.le.share.mapper.LikeUserMapper.BaseResultMap" type="com.le.share.model.LikeUser">
+  </resultMap>
+
+  <resultMap id="LikeUserResultMap" type="com.le.share.model.UserInfo">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="nick_name" jdbcType="VARCHAR" property="nickName" />
+    <result column="avatar_url" jdbcType="VARCHAR" property="avatarUrl" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, target_id, like_user_id, status
+  </sql>
+
+  <select id="selectOne" resultMap="ExtBaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_like_user
+    where target_id = #{targetId,jdbcType=BIGINT}
+    and like_user_id = #{likeUserId}
+    and status = #{status} limit 1
+  </select>
+
+  <select id="getLikeUsers" resultMap="LikeUserResultMap">
+    SELECT u.id, u.nick_name, u.avatar_url FROM t_like_user lu INNER JOIN t_user u ON lu.like_user_id = u.id
+    WHERE lu.target_id = #{targetId} AND lu.`status` = 0 AND u.`status` = 0 ORDER BY lu.create_time desc
+  </select>
+
+  <select id="exsitTargetIds" resultType="java.lang.Long">
+    SELECT target_id FROM t_like_user
+    WHERE status = 0
+    AND target_id IN
+    <foreach collection="targetIds" item="item" index="index" open="(" close=")" separator=",">
+      #{item}
+    </foreach>
+  </select>
+
+  <select id="getTargetIds" resultType="java.lang.Long">
+    SELECT target_id FROM t_like_user
+    WHERE status = 0
+    AND like_user_id = #{userId} AND like_type = #{type}
+    ORDER BY create_time DESC
+    LIMIT #{offset}, #{limit}
+  </select>
+
+</mapper>
