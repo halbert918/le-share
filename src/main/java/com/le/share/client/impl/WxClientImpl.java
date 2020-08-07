@@ -12,7 +12,7 @@ import org.springframework.web.client.RestTemplate;
 @Component
 public class WxClientImpl implements WxClient {
 
-    @Value("wx.jscode2session-url")
+    @Value("${wx.jscode2session-url}")
     private String code2SessionUrl;
 
     @Autowired

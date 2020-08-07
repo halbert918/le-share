@@ -33,10 +33,10 @@ public class UserInfoServiceImpl implements UserInfoService {
     @Override
     public WxSession login(String code, UserInfo userInfo) {
         // TODO mock
-        //CodeSession codeSession = wxClient.code2Session(code);
-        CodeSession codeSession = new CodeSession();
-        codeSession.setOpenid("fdaswewe2342fsafsdfas");
-        codeSession.setUnionid("failsp2342342sdfs982s");
+        CodeSession codeSession = wxClient.code2Session(code);
+//        CodeSession codeSession = new CodeSession();
+//        codeSession.setOpenid("fdaswewe2342fsafsdfas");
+//        codeSession.setUnionid("failsp2342342sdfs982s");
 
 
         userInfo.setOpenid(codeSession.getOpenid());

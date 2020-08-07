@@ -16,13 +16,13 @@ LIB_JARS=`ls $LIB_DIR|grep .jar|awk '{print "'$LIB_DIR'/"$0}'|tr "\n" ":"`
 
 JMX="-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=1091 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false"
 
-JAVA_OPTS=" -Djava.net.preferIPv4Stack=true -Dfile.encoding=utf-8"
+JAVA_OPTS=" -Djava.net.preferIPv4Stack=true -Dfile.encoding=utf-8 -Dspring.profiles.active=prod"
 JAVA_MEM_OPTS=" -server -Xms2g -Xmx2g -XX:SurvivorRatio=2 -XX:+UseParallelGC "
 
 # 主应用包
 MAIN_JAR="./le-share.jar"
 MAIN_CLASS=com.le.share.LeShareApplication
-START_CMD="java $JAVA_OPTS $JAVA_MEM_OPTS -classpath $CONF_DIR:$LIB_JARS $MAIN_JAR $MAIN_CLASS"
+START_CMD="java $JAVA_OPTS $JAVA_MEM_OPTS -classpath $CONF_DIR:$LIB_JARS$MAIN_JAR $MAIN_CLASS"
 
 isRunning() {
   pid=`ps -ef|grep $APP_NAME|grep -v grep|awk '{print $2}' `

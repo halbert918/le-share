@@ -2,7 +2,7 @@
 <!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
         "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
 <generatorConfiguration>
-    <context id="exp" defaultModelType="flat">
+    <context id="db_le_share" defaultModelType="flat">
         <!-- RowBounds pagination -->
         <plugin type="org.mybatis.generator.plugins.RowBoundsPlugin" />
         <plugin type="org.mybatis.generator.plugins.CaseInsensitiveLikePlugin" />
@@ -12,50 +12,87 @@
         <commentGenerator>
             <property name="suppressDate" value="true" />
             <property name="suppressAllComments" value="true" />
+            <!--<property name="addRemarkComments" value="true"/>-->
         </commentGenerator>
 
         <!-- jdbc连接 -->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://127.0.0.1:3306/db_rdm" userId="root"
-                        password="root" />
+                        connectionURL="jdbc:mysql://127.0.0.1:3306/db_rock?useUnicode=true&amp;characterEncoding=utf8&amp;useSSL=false"
+                        userId="root"
+                        password="root2019" />
 
         <!-- java model -->
-        <javaModelGenerator targetPackage="com.tencent.rdm.exp.entity"
+        <javaModelGenerator targetPackage="com.le.share.model"
                             targetProject="src/main/java">
             <!-- 是否针对string类型的字段在set的时候进行trim调用 -->
-            <property name="trimStrings" value="true" />
+            <property name="trimStrings" value="false" />
         </javaModelGenerator>
         <!-- mybatis mapper.xml -->
         <sqlMapGenerator targetPackage="mapper" targetProject="src/main/resources" />
         <!-- mybatis mapper -->
-        <javaClientGenerator targetPackage="com.tencent.rdm.exp.mapper"
+        <javaClientGenerator targetPackage="com.le.share.mapper"
                              targetProject="src/main/java" type="XMLMAPPER" />
 
         <!-- db table -->
-        <table tableName="t_exp_center_main" domainObjectName="ExpCenterMain">
-            <!-- override text column -->
-            <columnOverride column="title" javaType="java.lang.String" jdbcType="VARCHAR" />
-            <columnOverride column="download_style" javaType="java.lang.String" jdbcType="VARCHAR" />
-            <columnOverride column="background" javaType="java.lang.String" jdbcType="VARCHAR" />
-            <columnOverride column="platform_desc" javaType="java.lang.String" jdbcType="VARCHAR" />
-            <columnOverride column="feature" javaType="java.lang.String" jdbcType="VARCHAR" />
-            <columnOverride column="feedback_style" javaType="java.lang.String" jdbcType="VARCHAR" />
-            <columnOverride column="content" javaType="java.lang.String" jdbcType="VARCHAR" />
-        </table>
-        <table tableName="t_exp_center" domainObjectName="ExpCenter">
-            <columnOverride column="feature" javaType="java.lang.String" jdbcType="VARCHAR" />
-        </table>ExpCenterMapper
-        <table tableName="t_exp_group_user" domainObjectName="ExpUserGroup"
+        <table tableName="t_article" domainObjectName="Article"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false">
-            <columnOverride column="comment" javaType="java.lang.String" jdbcType="VARCHAR" />
-            <columnOverride column="user_ids" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <columnOverride column="status" javaType="java.lang.Integer" jdbcType="TINYINT" />
+            <columnOverride column="type" javaType="java.lang.Integer" jdbcType="TINYINT" />
+            <columnOverride column="is_hot" javaType="java.lang.Integer" jdbcType="TINYINT" />
+            <columnOverride column="is_swiper" javaType="java.lang.Integer" jdbcType="TINYINT" />
+
         </table>
-        <table tableName="t_exp_product_group" domainObjectName="ExpProductGroupRelation"
+
+        <!--<table tableName="t_article_image" domainObjectName="ArticleImage"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false">
+            <columnOverride column="status" javaType="int" jdbcType="TINYINT" />
+        </table>-->
+
+        <table tableName="t_user" domainObjectName="UserInfo"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+            <columnOverride column="status" javaType="int" jdbcType="TINYINT" />
+            <columnOverride column="gender" javaType="int" jdbcType="TINYINT" />
+        </table>
+
+        <table tableName="t_like_user" domainObjectName="LikeUser"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+            <columnOverride column="status" javaType="int" jdbcType="TINYINT" />
+            <columnOverride column="like_type" javaType="int" jdbcType="TINYINT" />
+        </table>
+
+        <table tableName="t_comment" domainObjectName="Comment"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+            <columnOverride column="status" javaType="int" jdbcType="TINYINT" />
+        </table>
+
+        <table tableName="t_reply" domainObjectName="Reply"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+            <columnOverride column="status" javaType="int" jdbcType="TINYINT" />
+            <columnOverride column="reply_type" javaType="int" jdbcType="TINYINT" />
+        </table>
+        <table tableName="t_follow" domainObjectName="Follow"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+            <columnOverride column="status" javaType="int" jdbcType="TINYINT" />
+        </table>
+        <table tableName="t_fans" domainObjectName="Fans"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+            <columnOverride column="status" javaType="int" jdbcType="TINYINT" />
         </table>
     </context>
 </generatorConfiguration>

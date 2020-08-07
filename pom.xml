@@ -36,10 +36,33 @@
         </dependency>
 
         <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+            <version>${spring-mybatis.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper-spring-boot-starter</artifactId>
+            <version>1.2.9</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid-spring-boot-starter</artifactId>
+            <version>1.1.10</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+
+        <!--<dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-mongodb</artifactId>
             <version>${spring-mongodb.version}</version>
-        </dependency>
+        </dependency>-->
 
         <!--<dependency>
             <groupId>org.mybatis.spring.boot</groupId>
@@ -66,6 +89,18 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.qcloud</groupId>
+            <artifactId>cos_api</artifactId>
+            <version>5.6.22</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.tencent.cloud</groupId>
+            <artifactId>cos-sts-java</artifactId>
+            <version>3.0.6</version>
         </dependency>
 
         <dependency>
@@ -105,11 +140,10 @@
             <version>${commons-httpclient.version}</version>
         </dependency>
 
-        <!-- druid -->
         <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>druid</artifactId>
-            <version>${alibaba-druid.version}</version>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-collections4</artifactId>
+            <version>4.4</version>
         </dependency>
 
         <dependency>
@@ -129,6 +163,15 @@
             <artifactId>commons-beanutils-core</artifactId>
             <version>1.8.0</version>
         </dependency>
+
+        <!--生成代码插件-->
+        <dependency>
+            <groupId>org.mybatis.generator</groupId>
+            <artifactId>mybatis-generator-core</artifactId>
+            <version>1.3.7</version>
+            <type>jar</type>
+        </dependency>
+
     </dependencies>
 
     <dependencyManagement>
@@ -144,7 +187,7 @@
     </dependencyManagement>
 
     <build>
-        <finalName>exp-admin</finalName>
+        <finalName>le-share</finalName>
         <sourceDirectory>src/main/java</sourceDirectory>
         <scriptSourceDirectory>src/main/scripts</scriptSourceDirectory>
         <resources>
@@ -189,7 +232,7 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
-                            <mainClass>com.tencent.rdm.exp.ExpAdminApplication</mainClass>
+                            <mainClass>com.le.share.LeShareApplication</mainClass>
                             <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
                             <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
                         </manifest>
@@ -220,6 +263,9 @@
                     </descriptors>
                     <!-- mvn deploy不会把assembly打的zip包上传到nexus -->
                     <attach>false</attach>
+                    <tarLongFileMode>posix</tarLongFileMode>
+                    <outputDirectory>${project.build.directory}</outputDirectory>
+                    <appendAssemblyId>false</appendAssemblyId>
                 </configuration>
                 <executions>
                     <execution>
@@ -233,9 +279,17 @@
             </plugin>
 
             <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.5</version>
+                <version>3.8.1</version>
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
@@ -247,70 +301,22 @@
                     </compilerArgs>
                 </configuration>
             </plugin>
+
         </plugins>
     </build>
 
     <distributionManagement>
         <repository>
-            <id>internal.releases</id>
-            <name>internal repository for releases</name>
-            <url>http://maven.oa.com/nexus/content/repositories/packages/</url>
+            <id>maven-releases</id>
+            <name>maven-releases</name>
+            <url>https://maven.aliyun.com/repository/public</url>
         </repository>
         <snapshotRepository>
-            <id>internal.snapshots</id>
-            <name>internal repository for snapshots</name>
-            <url>http://maven.oa.com/nexus/content/repositories/mysnapshots/</url>
+            <id>maven-snapshots</id>
+            <name>maven-snapshots</name>
+            <url>https://maven.aliyun.com/repository/snapshots</url>
         </snapshotRepository>
     </distributionManagement>
-
-    <profiles>
-        <profile>
-            <id>development</id>
-            <repositories>
-                <repository>
-                    <id>central</id>
-                    <url>http://maven.oa.com/nexus/content/repositories/public/</url>
-                    <releases>
-                        <enabled>true</enabled>
-                    </releases>
-                    <snapshots>
-                        <enabled>true</enabled>
-                    </snapshots>
-                </repository>
-            </repositories>
-            <pluginRepositories>
-                <pluginRepository>
-                    <id>central</id>
-                    <url>http://maven.oa.com/nexus/content/repositories/public/</url>
-                    <releases>
-                        <enabled>true</enabled>
-                    </releases>
-
-                    <snapshots>
-                        <enabled>true</enabled>
-                    </snapshots>
-                </pluginRepository>
-
-                <pluginRepository>
-                    <id>mqq</id>
-                    <releases>
-                        <enabled>true</enabled>
-                        <updatePolicy>always</updatePolicy>
-                        <checksumPolicy>fail</checksumPolicy>
-                    </releases>
-                    <snapshots>
-                        <enabled>true</enabled>
-                        <updatePolicy>always</updatePolicy>
-                        <checksumPolicy>fail</checksumPolicy>
-                    </snapshots>
-                    <name>Mqq Internal Repository</name>
-                    <!-- <url>http://trm.wsd.com/trm/repository/mqq</url> -->
-                    <url>http://maven.oa.com/nexus/content/repositories/mqq/</url>
-                    <layout>default</layout>
-                </pluginRepository>
-            </pluginRepositories>
-        </profile>
-    </profiles>
 
     <developers>
         <developer>
