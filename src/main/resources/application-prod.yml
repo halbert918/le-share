@@ -69,18 +69,18 @@ mybatis:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 wx:
-  appid: wx1d5f0a7eb6189e6d
-  secret: dc60723525654193569632fb127906b6
+  appid: xxxxx
+  secret: xxxxx
   jscode2session-url: https://api.weixin.qq.com/sns/jscode2session?appid=${wx.appid}&secret=${wx.secret}&js_code=%s&grant_type=authorization_code
 
 cos:
   api:
-    secret-id: AKIDA5lX3MSdZ9VdnmzyQkiW5WgaDpBIioWz
-    secret-key: KPOEi26NSIs9AvRyFApEjmk1w4wYmlV4
-    bucket: le-share-1300839762
-    region: ap-guangzhou
+    secret-id: xxxxx
+    secret-key: xxxxxx
+    bucket: xxxxx
+    region: xxxxxxx
     duration-seconds: 1800
     domian: https://le-share-1300839762.cos.ap-guangzhou.myqcloud.com
 
 auth:
-  secret-key: NOEi26sTMNSIs9AvRyFApEjm
+  secret-key: xxxxxxx
