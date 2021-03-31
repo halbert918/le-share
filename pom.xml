@@ -21,7 +21,7 @@
         <spring-mybatis.version>2.1.0</spring-mybatis.version>
         <spring-mongodb.version>2.2.5.RELEASE</spring-mongodb.version>
         <mysql.version>5.0.8</mysql.version>
-        <google-guava.version>25.0-jre</google-guava.version>
+        <google-guava.version>29.0-jre</google-guava.version>
         <alibaba-druid.version>1.0.29</alibaba-druid.version>
         <spring-shiro.version>1.4.0</spring-shiro.version>
         <apache-httpclient.version>4.5.1</apache-httpclient.version>
